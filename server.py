@@ -5,6 +5,8 @@ from http.server import HTTPServer, BaseHTTPRequestHandler
 import argparse
 import json
 from pathlib import Path
+import logging
+import time
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -15,6 +17,10 @@ courses = data["courses"]
 
 class RequestHandler(BaseHTTPRequestHandler):
     """ this class is for the server response. """
+    def __init__(self, *args, **kwargs):
+        self.request_started_at = 0.0
+        super().__init__(*args, **kwargs)
+
     def method_not_allowed(self):
         """ customising unidentified methods' responses. """
         path = self.path.split("?")[0]
@@ -230,8 +236,31 @@ class RequestHandler(BaseHTTPRequestHandler):
         """ patch same as put not yet implemented"""
         self.method_not_allowed()
 
+    def handle_one_request(self):
+        self.request_started_at = time.perf_counter()
+        super().handle_one_request()
+
+
+    def log_request(self, code="-", size="-"):
+        duration = (
+            time.perf_counter() - self.request_started_at
+        ) * 1000
+
+        logging.info(
+            "%s %s %s %.2fms",
+            self.command,
+            self.path,
+            code,
+            duration
+        )
+
 def main():
     """ main function. """
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s %(levelname)s %(message)s"
+    )
+
     parser = argparse.ArgumentParser(
         description="Elenchus HTTP Server"
     )
