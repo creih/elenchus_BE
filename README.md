@@ -8,12 +8,13 @@ This will serve as the backend repo to my elenchus project that is meant to be a
 - virtual environment( venv).
 
 # Installation
-- clone the repo from github `git clone https://`.
+- clone the repo from github `git@github.com:creih/elenchus_BE.git`.
 - setup your own virtual environment.
 - no requirements.txt file yet for dependencies so no need for the freeze cmd.
 
 # Running the http server
 - running the server `python3 -m http.server`.
+- for testing the endpoints use `curl localhost:{port-number}` port number could be 8000 or else if you choose.
 
 # Decision: repo layout.
 - With the use of python for the backend and typescript coupled with react as our frontend foundation I've opted for using 2 repos one for the frontend(Elenchus_FE) and the backend side of it( Elenchus_BE). This choice was made in conjuction with my thoughts of deployment setups and configuration settings for when we get to that part as most hosting services I know prefer keeping backend and frontend deployments seperate.
