@@ -1,0 +1,40 @@
+
+{
+    "courses": [
+        {
+            "id": 1,
+            "title": "Python Programming",
+            "description": "Learn Python fundamentals",
+            "price": 15000,
+            "currency": "RWF"
+        },
+        {
+            "id": 2,
+            "title": "Web Development",
+            "description": "Learn HTML, CSS and JavaScript",
+            "price": 20000,
+            "currency": "RWF"
+        },
+        {
+            "id": 3,
+            "title": "Database Fundamentals",
+            "description": "Learn relational databases",
+            "price": 18000,
+            "currency": "RWF"
+        },
+        {
+            "id": 4,
+            "title": "Git and GitHub",
+            "description": "Learn version control",
+            "price": 10000,
+            "currency": "RWF"
+        },
+        {
+            "id": 5,
+            "title": "Computer Networks",
+            "description": "Understand networking fundamentals",
+            "price": 25000,
+            "currency": "RWF"
+        }
+    ]
+}

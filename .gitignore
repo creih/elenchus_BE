@@ -1,0 +1,7 @@
+# virtual environment
+.elenchusVenv/
+
+# Caches and compile files
+__pycache__/
+*.py[cod]
+
