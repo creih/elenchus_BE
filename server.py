@@ -50,7 +50,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         body = json.dumps(data).encode("utf-8")
 
         self.send_response(status_code)
-        self.send_header("Content-Type", "application/json; charset=utf-8") # add type to the function parameters too.
+        self.send_header("Content-Type", "application/json; charset=utf-8")
         self.send_header("Content-Length", str(len(body)))
 
         if extra_headers:
@@ -225,8 +225,28 @@ class RequestHandler(BaseHTTPRequestHandler):
             {"Location": f"/courses/{new_id}"}
         )
     def do_DELETE(self):
-        """ delete not yet implemented"""
-        self.method_not_allowed()
+        """ deleting specific course by id. """
+        parts = self.path.split("/")
+
+        if len(parts) != 3 or parts[1] != "courses":
+            self.send_json(404, {"error": "Resource not found"})
+            return
+
+        try:
+            course_id = int(parts[2])
+        except ValueError:
+            self.send_json(400, {"error": "Course ID must be an integer"})
+            return
+
+        for course in courses:
+            if course["id"] == course_id:
+                courses.remove(course)
+                self.send_response(204)
+                self.end_headers()
+                print(f"The course: {course_id} deleted")
+                return
+
+        self.send_json(404, {"error": "Course not found"})
 
     def do_PUT(self):
         """ put for updating not yet implemented"""
