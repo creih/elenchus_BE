@@ -45,9 +45,9 @@ class RequestHandler(BaseHTTPRequestHandler):
             {"Allow": ", ".join(methods)}
         )
 
-    def send_json(self, status_code, data, extra_headers=None):
+    def send_json(self, status_code, json_data, extra_headers=None):
         """ coupling these json process in a function for code reusability"""
-        body = json.dumps(data).encode("utf-8")
+        body = json.dumps(json_data).encode("utf-8")
 
         self.send_response(status_code)
         self.send_header("Content-Type", "application/json; charset=utf-8")
@@ -189,7 +189,10 @@ class RequestHandler(BaseHTTPRequestHandler):
             self.send_json(400, {"error": "Title must be a non-empty string"})
             return
 
-        if not isinstance(course_data["description"], str) or not course_data["description"].strip():
+        if (
+            not isinstance(course_data["description"], str)
+            or not course_data["description"].strip()
+            ):
             self.send_json(400, {"error": "Description must be a non-empty string"})
             return
 
